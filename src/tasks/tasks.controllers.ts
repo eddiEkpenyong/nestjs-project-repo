@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import { TasksInterface } from './tasks.interface'
-import { TaskService } from './tasks.service'
+import { TasksService } from './tasks.service'
 
 @Controller('tasks')
 export class TasksController {
