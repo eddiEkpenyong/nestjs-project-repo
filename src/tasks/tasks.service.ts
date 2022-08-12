@@ -12,10 +12,14 @@ export class TasksService{
     return this.tasks
    }
 
+   getTasksById(id: string): TasksInterface{
+      return this.tasks.find((task) => task.id === id)
+   }
+
    createTasks(createTasksDto:CreateTasksDto): TasksInterface{
 
       const {title, description} = createTasksDto
-      
+
       const task:TasksInterface = {
          id: uuidv4(),
          title,
@@ -25,5 +29,10 @@ export class TasksService{
 
       this.tasks.push(task)
       return task
+   }
+
+   deleteTasks(id:string){
+      const tasksLeft = this.tasks.filter((task) => task.id !== id)
+      return tasksLeft
    }
 }
