@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Patch, UsePipes, ValidationPipe, NotFoundException } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Patch, UsePipes, ValidationPipe, Query } from '@nestjs/common'
 import { CreateTasksDto } from './dto/create-tasks.dto';
-import { TasksInterface, TasksStatus } from './tasks.interface'
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { TasksInterface, TasksStatus } from './tasks.interface';
 import { TasksService } from './tasks.service'
 
 @Controller('tasks')
@@ -8,17 +9,17 @@ export class TasksController {
     constructor(private tasksService: TasksService){}
 
     @Get()
-    getAllTasks(): TasksInterface[]{
-        return this.tasksService.getAllTasks()
+    getTasks(@Query() filterDto:GetTasksFilterDto): TasksInterface[]{
+
+        if(Object.keys(filterDto).length){
+            return this.tasksService.getTasksWithFilters(filterDto)
+        }
+        else return this.tasksService.getAllTasks()
     }
 
     @Get(':id')
     getTasksById(@Param('id') id:string ):TasksInterface{
-        const task = this.tasksService.getTasksById(id)
-        if(task){
-            return task
-        }
-        else throw new NotFoundException(`Task with "${id}" not found`)
+        return this.tasksService.getTasksById(id)
     }
 
     @Patch(':id')
