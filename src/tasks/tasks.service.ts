@@ -18,11 +18,11 @@ export class TasksService{
       let tasks = this.getAllTasks()
 
       if(status){
-       tasks = tasks.filter( task => task.status === status)
+       tasks = tasks.filter( task => task.status === status )
       }
 
       if(search){
-         tasks.filter(task => task.title.includes(search) || 
+       tasks =  tasks.filter(task => task.title.includes(search) || 
          task.description.includes(search))
       }
 
