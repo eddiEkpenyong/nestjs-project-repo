@@ -4,9 +4,5 @@ import { AuthDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
-    // constructor(private userService: UsersService){}
-
-    // signUp(authDto:AuthDto){
-    //     return this.userService.signUp(authDto)
-    // }
+   
 }

@@ -1,16 +1,14 @@
-import { Body, Controller, Post, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe, HttpStatus, UsePipes } from '@nestjs/common';
 import { AuthDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
-import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService,
-        private userService:UsersService){}
+    constructor(private userService:UsersService){}
 
-    @Post('signUp')
-    // @UsePipes()
-    signUpUser(@Body(ValidationPipe) authDto:AuthDto){
+    @Post('signup')
+    @UsePipes(new ValidationPipe({errorHttpStatusCode:HttpStatus.UNPROCESSABLE_ENTITY}))
+    signUp(@Body() authDto:AuthDto){
         return this.userService.signUp(authDto)
     }
 }
