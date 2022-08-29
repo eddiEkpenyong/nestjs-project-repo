@@ -11,4 +11,10 @@ export class AuthController {
     signUp(@Body() authDto:AuthDto){
         return this.userService.signUp(authDto)
     }
+
+    @Post('login')
+    @UsePipes(new ValidationPipe({errorHttpStatusCode:HttpStatus.UNPROCESSABLE_ENTITY}))
+    signIn(@Body() authDto:AuthDto){
+        return this.userService.signIn(authDto)
+    }
 }
