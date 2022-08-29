@@ -17,4 +17,7 @@ export class UserEntity {
 
     @UpdateDateColumn()
     updatedAt: Date
+
+    @Column()
+    salt:string
 }
